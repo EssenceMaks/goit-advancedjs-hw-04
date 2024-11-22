@@ -87,16 +87,15 @@ async function handleLoadMore() {
     const data = await getImg(currentSearchQuery, currentPage);
     createCardsMarkup(data.hits, true);
 
-    // Отримання висоти карточки після рендеру
-    const cardHeight = document
-      .querySelector('.gallery-card')
-      .getBoundingClientRect().height;
-
-    // Плавне прокручування на 2 висоти карточки
-    window.scrollBy({
-      top: cardHeight * 2,
-      behavior: 'smooth',
-    });
+    const galleryCard = document.querySelector('.gallery-card');
+    if (galleryCard) {
+      const { height: cardHeight } = galleryCard.getBoundingClientRect();
+      
+      window.scrollBy({
+        top: cardHeight * 2,
+        behavior: 'smooth',
+      });
+    }
 
     loaderClass.style.display = 'none';
 
